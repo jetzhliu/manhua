@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+
+const url = new URL(location.href);
+const h = parseInt(url.searchParams.get('h') || "1", 10);
+// const name = `D/斗罗大陆拆分版/${h}话GQ/`;
+const name = `D/斗罗大陆拆分版/${h}话/`;
+
+// const pre = "https://mhpic.mh51.com/comic/" + encodeURIComponent(name);
+const pre = "http://mhpic.jumanhua.com/comic/" + encodeURIComponent(name);
+
+// const post = ".jpg-mht.middle.webp";
+const post = ".jpg-mht.middle.jpg";
+let innerHTML = '';
+const container = document.getElementById('container');
+for (let i = 1; i < 15; ++i) {
+  innerHTML += `<img src="${pre + i + post}" />`;
+}
+
+container.innerHTML = innerHTML;
+const next = document.createElement('a');
+next.innerHTML = 'next';
+url.searchParams.set('h', h + 1);
+next.href = url.toString();
+document.body.append(next)
+
+  </script>
+</body>
+</html>
