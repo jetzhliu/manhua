@@ -13,42 +13,53 @@ body {
   width: 100%;
   height: auto;
 }
-a {
-  display: block;
+#btns {
   position: fixed;
-  bottom: 10px;
-  left: 0;
-  right: 0;
-  text-align: center;
+  bottom: 30px;
+  left: 10px;
+}
+a {
   font-size: 30px;
 }
+
   </style>
 </head>
 <body>
   <div id="container"></div>
+  <div id="btns"></div>
   <script>
 
 const url = new URL(location.href);
 const h = parseInt(url.searchParams.get('h') || "1", 10);
-const name = h >= 588 ? `D/斗罗大陆拆分版/${h}话GQ/` : `D/斗罗大陆拆分版/${h}话/`;
+const g = !!url.searchParams.get('g');
 
-// const pre = "https://mhpic.mh51.com/comic/" + encodeURIComponent(name);
-const pre = "http://mhpic.jumanhua.com/comic/" + encodeURIComponent(name);
+// const name = `D/斗罗大陆拆分版/${h}话GQ/`;
+
+// const pre = "//mhpic.mh51.com/comic/" + encodeURIComponent(name);
+// //mhpic.zymkcdn.com/comic/D%2F%E6%96%97%E7%BD%97%E5%A4%A7%E9%99%86%E6%8B%86%E5%88%86%E7%89%88%2F589%E8%AF%9D%2F1.jpg-zymk.middle.webp
+const pre = `http://mhpic.jumanhua.com/comic/D/斗罗大陆拆分版/${h}话${g?'GQ':''}/`;
 
 // const post = ".jpg-mht.middle.webp";
 const post = ".jpg-mht.middle.jpg";
 let innerHTML = '';
-const container = document.getElementById('container');
-for (let i = 1; i < 15; ++i) {
+const pages = h > 610 ? 60 : 15;
+for (let i = 1; i < pages; ++i) {
   innerHTML += `<img src="${pre + i + post}" />`;
 }
+const gq = new URL(url);
+if (g) {
+  gq.searchParams.delete('g');
+} else {
+  gq.searchParams.set('g', '1');
+}
+const next = new URL(url);
+next.searchParams.set('h', h + 1);
 
-container.innerHTML = innerHTML;
-const next = document.createElement('a');
-next.innerHTML = 'next';
-url.searchParams.set('h', h + 1);
-next.href = url.toString();
-document.body.append(next)
+document.getElementById('container').innerHTML = innerHTML;
+document.getElementById('btns').innerHTML = `
+<a href="${gq.search}" id="gq">gq</a>
+<a href="${next.search}" id="next">next</a>
+`
 
   </script>
 </body>
