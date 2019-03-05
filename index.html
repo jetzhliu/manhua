@@ -30,8 +30,7 @@ a {
 
 const url = new URL(location.href);
 const h = parseInt(url.searchParams.get('h') || "1", 10);
-// const name = `D/斗罗大陆拆分版/${h}话GQ/`;
-const name = `D/斗罗大陆拆分版/${h}话/`;
+const name = h >= 588 ? `D/斗罗大陆拆分版/${h}话GQ/` : `D/斗罗大陆拆分版/${h}话/`;
 
 // const pre = "https://mhpic.mh51.com/comic/" + encodeURIComponent(name);
 const pre = "http://mhpic.jumanhua.com/comic/" + encodeURIComponent(name);
