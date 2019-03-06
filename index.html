@@ -31,13 +31,14 @@ a {
 
 const url = new URL(location.href);
 const h = parseInt(url.searchParams.get('h') || "1", 10);
-const g = !!url.searchParams.get('g');
+const g = url.searchParams.get('g') || '';
 
 // const name = `D/斗罗大陆拆分版/${h}话GQ/`;
 
 // const pre = "//mhpic.mh51.com/comic/" + encodeURIComponent(name);
 // //mhpic.zymkcdn.com/comic/D%2F%E6%96%97%E7%BD%97%E5%A4%A7%E9%99%86%E6%8B%86%E5%88%86%E7%89%88%2F589%E8%AF%9D%2F1.jpg-zymk.middle.webp
-const pre = `http://mhpic.jumanhua.com/comic/D/斗罗大陆拆分版/${h}话${g?'GQ':''}/`;
+// http://mhpic.zymkcdn.com/comic/D%2F%E6%96%97%E7%BD%97%E5%A4%A7%E9%99%86%E6%8B%86%E5%88%86%E7%89%88%2F617%E8%AF%9DGQV%2F1.jpg-zymk.middle.webp
+const pre = `http://mhpic.jumanhua.com/comic/D/斗罗大陆拆分版/${h}话${g}/`;
 
 // const post = ".jpg-mht.middle.webp";
 const post = ".jpg-mht.middle.jpg";
@@ -47,18 +48,25 @@ for (let i = 1; i < pages; ++i) {
   innerHTML += `<img src="${pre + i + post}" />`;
 }
 const gq = new URL(url);
-if (g) {
+if (g === 'GQ') {
   gq.searchParams.delete('g');
 } else {
-  gq.searchParams.set('g', '1');
+  gq.searchParams.set('g', 'GQ');
+}
+const gqv = new URL(url);
+if (g === 'GQV') {
+  gq.searchParams.delete('g');
+} else {
+  gq.searchParams.set('g', 'GQV');
 }
 const next = new URL(url);
 next.searchParams.set('h', h + 1);
 
 document.getElementById('container').innerHTML = innerHTML;
 document.getElementById('btns').innerHTML = `
-<a href="${gq.search}" id="gq">gq</a>
-<a href="${next.search}" id="next">next</a>
+<a href="${gq.search}">gq</a>
+<a href="${gqv.search}">gq</a>
+<a href="${next.search}">next</a>
 `
 
   </script>
