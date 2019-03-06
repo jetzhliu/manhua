@@ -55,9 +55,9 @@ if (g === 'GQ') {
 }
 const gqv = new URL(url);
 if (g === 'GQV') {
-  gq.searchParams.delete('g');
+  gqv.searchParams.delete('g');
 } else {
-  gq.searchParams.set('g', 'GQV');
+  gqv.searchParams.set('g', 'GQV');
 }
 const next = new URL(url);
 next.searchParams.set('h', h + 1);
